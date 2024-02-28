@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAPTCHA Generator</title>
+    <style>
+        .captcha {
+            font-size: 20px;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h2>Simple CAPTCHA</h2>
+    <div class="captcha" id="captcha"></div>
+    <button onclick="generateCaptcha()">Generate New CAPTCHA</button>
+
+    <script>
+        function generateCaptcha() {
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var captchaLength = 6;
+            var captcha = '';
+            for (var i = 0; i < captchaLength; i++) {
+                captcha += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            document.getElementById('captcha').textContent = captcha;
+        }
+
+        // Generate initial CAPTCHA when the page loads
+        window.onload = generateCaptcha;
+    </script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        .container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .captcha {
+            font-size: 20px;
+            font-family: Arial, sans-serif;
+            margin-bottom: 10px;
+        }
+
+        .social-login {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .social-login button {
+            width: calc(25% - 5px);
+            background-color: #3b5998; /* Facebook */
+        }
+
+        .social-login button:nth-child(2) {
+            background-color: #0e76a8; /* LinkedIn */
+        }
+
+        .social-login button:nth-child(3) {
+            background-color: #db4437; /* Google */
+        }
+
+        .social-login button:nth-child(4) {
+            background-color: #24292e; /* GitHub */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="otp">OTP:</label>
+            <input type="text" id="otp" name="otp" required>
+            <button type="button" onclick="generateOTP()">Generate OTP</button>
+
+            <div class="captcha" id="captcha"></div>
+            <input type="text" id="captchaInput" placeholder="Enter CAPTCHA" required>
+            <button type="button" onclick="generateCaptcha()">Generate CAPTCHA</button>
+            
+            <button type="submit">Login</button>
+        </form>
+
+        <div class="social-login">
+            <button>Login with Facebook</button>
+            <button>Login with LinkedIn</button>
+            <button>Login with Google</button>
+            <button>Login with GitHub</button>
+        </div>
+    </div>
+
+    <script>
+        function generateOTP() {
+            var otpLength = 6;
+            var characters = '0123456789';
+            var otp = '';
+            for (var i = 0; i < otpLength; i++) {
+                otp += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            document.getElementById('otp').value = otp;
+        }
+
+        function generateCaptcha() {
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var captchaLength = 6;
+            var captcha = '';
+            for (var i = 0; i < captchaLength; i++) {
+                captcha += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            document.getElementById('captcha').textContent = captcha;
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            var email = document.getElementById('email').value;
+            var otp = document.getElementById('otp').value;
+            var captchaInput = document.getElementById('captchaInput').value;
+            var captcha = document.getElementById('captcha').textContent;
+
+            if (captchaInput === captcha) {
+                // Here you can add code to send the email and OTP to a backend for verification
+                alert('Login successful!');
+            } else {
+                alert('CAPTCHA verification failed. Please try again.');
+            }
+        });
+
+        // Generate initial CAPTCHA when the page loads
+        window.onload = generateCaptcha;
+    </script>
+</body>
+</html>

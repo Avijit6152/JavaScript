@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Generator</title>
+    <script>
+        function generateOTP() {
+            // Define length of OTP
+            var otpLength = 6;
+            // Define possible characters
+            var characters = '0123456789';
+            var otp = '';
+            for (var i = 0; i < otpLength; i++) {
+                otp += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            document.getElementById('otp').innerHTML = otp;
+        }
+    </script>
+</head>
+<body>
+    <h2>Generate OTP</h2>
+    <button onclick="generateOTP()">Generate OTP</button>
+    <p id="otp"></p>
+</body>
+</html>

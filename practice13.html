@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .captcha {
+            font-size: 20px;
+            font-family: Arial, sans-serif;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="otp">OTP:</label>
+            <input type="text" id="otp" name="otp" required>
+            <button type="button" onclick="generateOTP()">Generate OTP</button><br><br>
+
+            <div class="captcha" id="captcha"></div>
+            <input type="text" id="captchaInput" placeholder="Enter CAPTCHA" required>
+            <button type="button" onclick="generateCaptcha()">Generate CAPTCHA</button>
+            
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        function generateOTP() {
+            var otpLength = 6;
+            var characters = '0123456789';
+            var otp = '';
+            for (var i = 0; i < otpLength; i++) {
+                otp += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            document.getElementById('otp').value = otp;
+        }
+
+        function generateCaptcha() {
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var captchaLength = 6;
+            var captcha = '';
+            for (var i = 0; i < captchaLength; i++) {
+                captcha += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            document.getElementById('captcha').textContent = captcha;
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            var email = document.getElementById('email').value;
+            var otp = document.getElementById('otp').value;
+            var captchaInput = document.getElementById('captchaInput').value;
+            var captcha = document.getElementById('captcha').textContent;
+
+            if (captchaInput === captcha) {
+                // Here you can add code to send the email and OTP to a backend for verification
+                alert('Login successful!');
+            } else {
+                alert('CAPTCHA verification failed. Please try again.');
+            }
+        });
+
+        // Generate initial CAPTCHA when the page loads
+        window.onload = generateCaptcha;
+    </script>
+</body>
+</html>
